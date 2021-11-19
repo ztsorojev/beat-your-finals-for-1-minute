@@ -1,5 +1,5 @@
 # beat-your-finals-for-1-minute
-Little game where you can punch your finals for 1 minute.
+Little game where you can punch your finals for 1 minute. However your mouse over the little characters to score points and make them dissappear.
 
 Play it on https://beatyourfinalsfor1minute.com/
 
