@@ -1,0 +1,295 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <title>Beat your finals for 1 minute.</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Cool down a little in these stressful times.">
+  <meta name="author" content="Everydae">
+  <link rel="icon" type="image/png" href="lib/img/favicon.png">
+
+  <!-- <link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css"> -->
+  <style type="text/css">
+    #mc_embed_signup{display: flex; background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+    #mc_embed_signup form {
+      margin: auto;
+    }
+    #mc_embed_signup_scroll {
+      display: flex;
+    }
+    /* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+      We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+  </style>
+  
+  <!--PREFINERY-->
+  <script src="https://widget.prefinery.com/widget/v2/c9b5a8f6.js" defer></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
+    .page-container {
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      min-height: 100vh;
+    }
+
+    h1 {
+      color: #010142;
+    }
+
+    p {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 22px;
+    }
+    
+    #time {
+      color: #9e00ff;
+    }
+
+    #counter {
+      display: none;
+      font-weight: 600;
+      color: #560786;
+      font-family: Verdana, sans-serif;
+    }
+
+    /* The Modal (background) */
+    .modal {
+      display: none; /* Hidden by default */
+      align-items: center;
+      position: fixed; /* Stay in place */
+      z-index: 15; /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto; /* 15% from the top and centered */
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%; /* Could be more or less, depending on screen size */
+      font-size: 1rem;
+      font-weight: 400;
+    }
+
+    .button {
+      background: blue !important;
+      color: white;
+      padding: 7px 15px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .button-start {
+      background: black;
+      font-weight: 600;
+      border-radius: 20px;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .button:hover, .button-start:hover {
+      background: #3f3fff;
+    }
+
+    .button:focus, .button-start:focus {
+      background: #0000bb;
+    }
+
+    .monster {
+      cursor: pointer;
+      padding: 10px;
+      z-index: 10;
+    }
+
+    .prefinery-form-embed > iframe {
+      height: 120px !important;
+    }
+
+    @media (min-width: 768px) {
+      .modal-content {
+        width: 50%;
+      }
+    }
+
+    @media (min-width: 992px) {
+      .modal-content {
+        width: 40%;
+      }
+      .prefinery-form-embed > iframe {
+        height: 50px !important;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .modal-content {
+        width: 30%;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="page-container">
+    <h1 style="margin-top: 40px;">Beat your finals for 1 minute</h1>
+    <h2 id="time">01:00</h2>
+    <p>Time to make them pay. Make sure to have the <b>sound</b> 🔈on! :)</p>
+    <button class="button-start" onclick="startTimer(this)">START</button>
+    <div id="counter">0</div>
+
+    <div id="monster">
+        <img src="https://d2vyh0elyypjcf.cloudfront.net/lib/img/final1.png" onmouseover="punchMonster(this)" class="monster" width="150px" style="display: flex; margin: 7rem auto 0;"/>
+    </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+          <h1 id="grade">A+</h1>
+          <p id="result-message">Good job defeating the finals monsters!</p>
+          <p id="result-submessage">Hope you got some stress relief out of it.</p>
+          <p>Sign up for more games and fun ways to ace your classes:</p>
+
+          <div class='prefinery-form-embed'></div>
+
+          <p>Now back to work! Let's beat those finals in real life too! 💪</p>
+          <p>- Built by <a href="https://www.everydae.com/" target="_blank">Everydae</a></p>
+        </div>
+      </div>
+  </div>
+  <script>
+    var counter = 0;
+    var absoluteTimer = 60;
+    var gameStarted = false;
+
+    function startTimer(el) {
+      el.remove();
+      document.getElementById("counter").style.display = "block";
+
+      var duration = 59;
+      var timer = duration, minutes, seconds;
+      gameStarted = true;
+      (function x () {
+        absoluteTimer = timer;
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        document.querySelector('#time').textContent = minutes + ":" + seconds;
+
+        if (timer <= 0) {
+          showModal();
+          clearTimeout(monsterTimeout);
+        } else {
+          --timer;
+        }
+        setTimeout(x, 1000);
+      })();
+    }
+
+    function showModal() {
+      var modal = document.getElementById("myModal");
+      modal.style.display = "flex";
+      var grade = 'A+';
+      if (counter >= 60) {
+        var grade = 'A+';
+        document.getElementById("result-message").innerHTML = `You are a hero! ${counter} finals monsters were KOed!`;
+        document.getElementById("result-submessage").innerHTML = `Hope you got some stress relief out of it.`;
+      } else if (counter >= 40) {
+        var grade = 'A';
+        document.getElementById("result-message").innerHTML = `Amazing! You KOed ${counter} finals monsters!`;
+        document.getElementById("result-submessage").innerHTML = `Hope you got some stress relief out of it.`;
+      } else if (counter > 20) {
+        var grade = 'A-';
+        document.getElementById("result-message").innerHTML = `Nice try! You defeated ${counter} finals monsters!`;
+        document.getElementById("result-submessage").innerHTML = `If you have an extra minute, you can <a href="/">try again</a> to improve your score.`;
+      } else {
+        grade = 'B';
+        document.getElementById("result-message").innerHTML = `You can do better! Only ${counter} finals monsters were slayed!`;
+        document.getElementById("result-submessage").innerHTML = `If you have an extra minute, <a href="/">try again</a> to improve your score.`;
+      }
+      document.getElementById("grade").innerHTML = grade;
+    }
+
+    function showMonster() {
+      // var body = document.body,
+      //     html = document.documentElement;
+
+      // var height = Math.max( body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight );
+      // var width = Math.max( body.scrollWidth, body.offsetWidth, html.clientWidth, html.scrollWidth, html.offsetWidth );
+    
+      var top = Math.random() * 80;
+      var left = Math.random() * 80;
+
+      var sign = 1;
+      if (Math.random() > 0.5) sign = -1;
+      document.getElementById("monster").innerHTML += `<img src="https://d2vyh0elyypjcf.cloudfront.net/lib/img/final${Math.round(Math.random()*10)+1}.png" onmouseover="punchMonster(this)" class="monster" width="150px" style="position: absolute; top: ${top}%; left: ${left}%; transform: rotate(${15*Math.random()*sign}deg);"/>`;
+    }
+
+    // var monsterInterval = setInterval(showMonster, 2000);
+    var timeDelay = 1000;
+    var accelerateMonstersShowing = function() {
+        // Don't do anything if game hasn't started yet
+        if (gameStarted) {
+          timeDelay -= 200*Math.random();
+          if (timeDelay <= 500) {
+            timeDelay = 500 + 100*Math.random();
+          }
+          if (absoluteTimer <= 15) {
+            showMonster();
+          }
+          showMonster();
+        }
+        if (absoluteTimer > 0) {
+          setTimeout(accelerateMonstersShowing, timeDelay);
+        }
+    }
+    var monsterTimeout = setTimeout(accelerateMonstersShowing, timeDelay);
+
+    function punchMonster(el) {
+      if (!gameStarted) return;
+      el.remove();
+      counter++;
+      document.getElementById("counter").innerHTML = counter;
+      if (Math.random() > 0.15) {
+        var soundPunch = new Audio(`https://s3.us-east-2.amazonaws.com/www.beatyourfinalsfor1minute.com/lib/audio/Punch1.mp3`);
+      } else {
+        var soundPunch = new Audio(`https://s3.us-east-2.amazonaws.com/www.beatyourfinalsfor1minute.com/lib/audio/Punch${Math.round(Math.random())+2}.mp3`);
+      }
+      // soundPunch.currentTime = 0;
+      soundPunch.volume = 0.5;
+      soundPunch.play();
+    }
+
+    // document.getElementById("monster").addEventListener('click', function (event) {
+    //   // If the clicked element doesn't have the right selector, bail
+    //   if (!event.target.matches('.monster') || !gameStarted) return;
+
+    //   event.target.remove();
+    //   counter++;
+    //   document.getElementById("counter").innerHTML = counter;
+    //   var soundPunch = new Audio(`lib/audio/Punch1.mp3`);
+    //   soundPunch.currentTime = 0;
+    //   soundPunch.volume = 0.5;
+    //   soundPunch.play();
+    // });
+
+  </script>
+</body>
+</html>
